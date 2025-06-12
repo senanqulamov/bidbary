@@ -6,26 +6,16 @@ on:
 jobs:
   backup:
     runs-on: ubuntu-latest
+    environment: backup-approval  # Requires manual approval
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Get all history
-          ref: master    # Explicitly checkout master first
+          fetch-depth: 0
 
-      - name: Create or update main branch
+      - name: Backup master to main
         run: |
-          # Configure git
-          git config --global user.name "GitHub Actions Backup"
+          git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-
-          # Create main branch if it doesn't exist
-          if ! git show-ref --quiet refs/heads/main; then
-            git branch main
-          fi
-
-          # Reset main to match master
-          git checkout main
-          git reset --hard origin/master
-
-          # Push changes
+          git fetch --all
+          git checkout -B main origin/master
           git push origin main --force
