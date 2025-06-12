@@ -1,25 +1,31 @@
 name: Backup master to main
 on:
   push:
-    branches: [ master ]
+    branches: [master]
+
 jobs:
   backup:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetches all branches
+          fetch-depth: 0  # Get all history
+          ref: master    # Explicitly checkout master first
 
-      - name: Force-update main to match master
+      - name: Create or update main branch
         run: |
+          # Configure git
           git config --global user.name "GitHub Actions Backup"
           git config --global user.email "actions@github.com"
 
-          # Check if main exists, create if not
-          if ! git show-ref --verify --quiet refs/heads/main; then
-            git branch main origin/master
+          # Create main branch if it doesn't exist
+          if ! git show-ref --quiet refs/heads/main; then
+            git branch main
           fi
 
+          # Reset main to match master
           git checkout main
           git reset --hard origin/master
+
+          # Push changes
           git push origin main --force
