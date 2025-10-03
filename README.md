@@ -59,3 +59,18 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Architecture Diagram
+![Architecture](./assets/architech/architecture.svg)
+
+---
+
+ *   **User-Friendly Frontend:** Interactive application built with Next.js and TailwindCSS.
+*   **Secure API Access:** API Gateway with JWT authentication for secure request handling.
+*   **Robust Authentication:** Dedicated Authentication Service for user registration, login, and authorization.
+*   **Auction Management:** Auction Service for creating, managing bids, and processing auction ends.
+*   **User Profile Management:** User Service to handle user profiles and roles.
+*   **Scalable Architecture:** Horizontally scalable microservices and API Gateway for handling increased load.
+*   **Centralized Data Storage:** PostgreSQL database for persistent data storage. 
+
+*Made with [Architech](https://architech.dev)*
